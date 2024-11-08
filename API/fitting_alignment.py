@@ -1,5 +1,6 @@
-import alignment
-import utils
+from . import alignment
+from . import utils
+import numpy as np
 
 class FittingAlignment(alignment.Align):
     def traceback(self, v, w, M, init_i, init_j, pointers):
@@ -20,10 +21,10 @@ class FittingAlignment(alignment.Align):
             i, j = i + di, j + dj
             if (i <= 0):
                 break
-        return ''.join(new_v[::-1]) + '\n'+''.join(new_w[::-1])
+        return ''.join(new_v[::-1]) + '\n'+''.join(new_w[::-1]), j
 
     def align(self, short, reference):
-        M = [[0 for j in range(len(reference)+1)] for i in range(len(short)+1)]
+        M = np.array([[0 for j in range(len(reference)+1)] for i in range(len(short)+1)])
         pointers = [[utils.ORIGIN for j in range(len(reference)+1)] for i in range(len(short)+1)]
         score = None
         init_j = 0
@@ -68,5 +69,8 @@ class FittingAlignment(alignment.Align):
                 init_j = len(M[-1]) - i - 1
 
 
-        alignment = self.traceback(short, reference, None, -1, init_j, pointers)
-        return score, alignment
+        alignment, j_s = self.traceback(short, reference, None, -1, init_j, pointers)
+
+        init_j_act = init_j + 1
+
+        return score, alignment, M[:, j_s:init_j_act], [' '] + short, reference[j_s:init_j_act]
