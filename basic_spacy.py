@@ -134,181 +134,21 @@ def global_align(v, w):
 
 nlp = spacy.load("en_core_web_sm")
 
-text = """1. PROLOGUE
-
-Two households, both alike in dignity,
-In fair Verona, where we lay our scene,
-From ancient grudge break to new mutiny,
-Where civil blood makes civil hands unclean.
-From forth the fatal loins of these two foes
-A pair of star-cross'd lovers take their life;
-Whose misadventured piteous overthrows
-Do with their death bury their parents' strife.
-The fearful passage of their death-mark'd love,
-And the continuance of their parents' rage,
-Which, but their children's end, nought could remove,
-Is now the two hours' traffic of our stage;
-The which if you with patient ears attend,
-What here shall miss, our toil shall strive to mend.
-
-2. SCENE I. Verona. A public place.
-
-Enter SAMPSON and GREGORY, of the house of Capulet, armed with swords and bucklers.
-
-SAMPSON
-Gregory, o' my word, we'll not carry coals.
-
-GREGORY
-No, for then we should be colliers.
-
-SAMPSON
-I mean, and we be in choler, we'll draw.
-
-GREGORY
-Ay, while you live, draw your neck out of collar.
-
-SAMPSON
-I strike quickly, being moved.
-
-GREGORY
-But thou art not quickly moved to strike.
-
-SAMPSON
-A dog of the house of Montague moves me.
-
-GREGORY
-To move is to stir, and to be valiant is to stand: therefore, if thou art moved, thou runn'st away.
-
-SAMPSON
-A dog of that house shall move me to stand: I will take the wall of any man or maid of Montague's.
-
-GREGORY
-That shows thee a weak slave; for the weakest goes to the wall.
-
-SAMPSON
-True; and therefore women, being the weaker vessels, are ever thrust to the wall: therefore I will push Montague's men from the wall, and thrust his maids to the wall.
-
-GREGORY
-The quarrel is between our masters and us their men.
-
-SAMPSON
-'Tis all one, I will show myself a tyrant: when I have fought with the men, I will be cruel with the maids, and cut off their heads.
-
-GREGORY
-The heads of the maids?
-
-SAMPSON
-Ay, the heads of the maids, or their maidenheads; take it in what sense thou wilt.
-
-GREGORY
-They must take it in sense that feel it.
-
-SAMPSON
-Me they shall feel while I am able to stand: and 'tis known I am a pretty piece of flesh.
-
-GREGORY
-'Tis well thou art not fish; if thou hadst, thou hadst been poor-John. Draw thy tool! here comes two of the house of Montague.
-
-SAMPSON
-My naked weapon is out: quarrel, I will back thee.
-
-GREGORY
-How! turn thy back and run?
-
-SAMPSON
-Fear me not.
-
-GREGORY
-No, marry; I fear thee!
-
-SAMPSON
-Let us take the law of our sides; let them begin.
-
-GREGORY
-I will frown as I pass by, and let them take it as they list.
-
-SAMPSON
-I will bite my thumb at them; which is a disgrace to them, if they bear it.
-
-GREGORY
-Do you bite your thumb at us, sir?
-
-SAMPSON
-I do bite my thumb, sir.
-
-GREGORY
-Do you bite your thumb at us, sir?
-
-SAMPSON
-Is the law of our side, if I say ay?
-
-GREGORY
-No.
-
-SAMPSON
-No, sir, I do not bite my thumb at you, sir; but I bite my thumb, sir.
-
-GREGORY
-Do you quarrel, sir?
-
-SAMPSON
-Quarrel sir! no, sir.
-
-GREGORY
-But if you do, sir, I am for you: I serve as good a man as you.
-
-SAMPSON
-No better.
-
-GREGORY
-Well, sir.
-
-SAMPSON
-Say better: here comes one of my master's kinsmen.
-
-GREGORY
-Yes, better, sir.
-
-SAMPSON
-You lie.
-
-GREGORY
-Draw, if you be men. Gregory, remember thy swashing blow.
-
-SAMPSON
-They have made worms' meat of me.
-
-GREGORY
-I have it, and it is a very good sword.
-
-SAMPSON
-I will cut you, sir, I will cut you!
-
-GREGORY
-A dog of Montague! what a quarrel is this?
-
-SAMPSON
-I will cut off their heads.
-
-GREGORY
-Peace be with you.
-
-SAMPSON
-The people, sir, will riot.
-
-GREGORY
-The walls are full of them.
-
-SAMPSON
-The blood is on my hands. I will fight them. Take this fight in case it continues!
+text = """
+The quick brown fox jumped over the lazy dog sitting on the green grass under the blue sky. The dog did not seem to notice as the fox hopped over its back, and instead continued to rest peacefully in the warm sunlight. The fox, with its sleek brown fur and quick movements, dashed across the field, weaving through the tall blades of grass as it chased after a butterfly fluttering near the ground. The scene was calm, with the gentle breeze rustling the leaves of nearby trees and the distant chirping of birds providing a peaceful soundtrack to the serene moment.
+"""
+text2 = """
+A quick brown fox leapt over the lazy dog lying on the lush green grass beneath a bright blue sky. The dog barely noticed as the fox soared over it, staying still in the warm sunshine. The fox, with its smooth brown coat and swift pace, sprinted across the open field, darting through the tall grass as it pursued a butterfly drifting near the earth. The environment felt tranquil, with a light breeze gently swaying the leaves of the trees and the soft songs of birds filling the air, contributing to the calm atmosphere.
 """
 
 doc = nlp(text)
+doc2 = nlp(text2)
 
 
 a = doc_to_characters(doc)
-x, y = global_align(a, a)
+b = doc_to_characters(doc2)
+x, y = global_align(a, b)
 
 print(y)
 print(x)
-print(len(a))
+print(len(a), len(b), len(text.split()), len(text2.split()))
