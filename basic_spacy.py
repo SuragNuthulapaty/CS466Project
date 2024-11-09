@@ -50,7 +50,7 @@ else:
 plt.title(cur[3])
 plt.xlabel("Sequence 2")
 plt.ylabel("Sequence 1")
-plt.savefig("images/global_align.png")
+plt.savefig("API/static/global_align.png")
 plt.clf()
 
 cur = (mf, fve, fwe, "Fitting Alignment DP Matrix")
@@ -62,7 +62,7 @@ else:
 plt.title(cur[3])
 plt.xlabel("Sequence 2")
 plt.ylabel("Sequence 1")
-plt.savefig("images/fitting_align.png")
+plt.savefig("API/static/fitting_align.png")
 plt.clf()
 
 cur = (ml, lve, lwe, "Local Alignment DP Matrix")
@@ -74,5 +74,5 @@ else:
 plt.title(cur[3])
 plt.xlabel("Sequence 2")
 plt.ylabel("Sequence 1")
-plt.savefig("images/local_align.png")
+plt.savefig("API/static/local_align.png")
 plt.clf()
