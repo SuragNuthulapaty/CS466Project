@@ -1,7 +1,7 @@
 import os
 import time
 
-from flask import Flask, jsonify, Response, request, send_from_directory, render_template
+from flask import Flask, jsonify, Response, request, send_from_directory, render_template, send_file
 from apiflask import APIFlask, Schema
 from flask_cors import CORS
 from apiflask.fields import Integer, String, Boolean, List, Nested, Date, Float
@@ -23,15 +23,15 @@ IMAGE_FOLDER = 'API/images/'
 
 @app.route('/local_image')
 def get_image_local():
-    return render_template("local_render.html")
+    return send_file("static/local_align.png", mimetype="image/png")
 
 @app.route('/fitting_image')
 def get_image_fitting():
-    return send_from_directory(IMAGE_FOLDER, "fitting_align.ng")
+    return send_file("static/fitting_align.png", mimetype="image/png")
 
 @app.route('/global_image')
 def get_image_global():
-    return send_from_directory(IMAGE_FOLDER, "global_align.png")
+    return send_file("static/global_align.png", mimetype="image/png")
 
 @app.route('/aa')
 def aa():

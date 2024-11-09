@@ -73,4 +73,9 @@ class FittingAlignment(alignment.Align):
 
         init_j_act = init_j + 1
 
-        return score, alignment, M[:, j_s:init_j_act], [' '] + short, reference[j_s:init_j_act]
+        adding_w = []
+
+        if j_s == 0:
+            adding_w = ['']
+
+        return score, alignment, M[:, j_s:init_j_act], [' '] + short, adding_w + reference[j_s:init_j_act]
