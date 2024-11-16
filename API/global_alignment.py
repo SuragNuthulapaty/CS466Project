@@ -1,5 +1,5 @@
-from . import alignment
-from . import utils
+import alignment
+import utils
 
 class GlobalAlignment(alignment.Align):
     def traceback(self, v, w, M, init_i, init_j, pointers):

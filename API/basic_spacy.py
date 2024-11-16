@@ -1,8 +1,8 @@
 import spacy
-import API.global_alignment as global_alignment
-import API.local_alignment as local_alignment
-import API.fitting_alignment as fitting_alignment
-import API.utils as utils
+import global_alignment
+import local_alignment
+import fitting_alignment
+import utils
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -17,12 +17,12 @@ text2 = """
 On the edge of the town, a small café stood quietly, its windows fogged with the warmth of brewing coffee inside. The air was filled with the scent of freshly baked pastries and the soft hum of conversation. An elderly man sat by the window, sipping his coffee slowly as he watched the rain fall in sheets. Outside, people hurried by, some with umbrellas, others trying to shield themselves with newspapers. The world seemed to move quickly, but in this little café, time felt like it had stopped, if only for a moment.
 """
 
-# text = """
-# The world of quantum
-# """
-# text2 = """
-# On the edge of the town, a small café stood 
-# """
+text = """
+The world of quantum
+"""
+text2 = """
+On the edge of the town, a small café stood 
+"""
 
 doc = nlp(text)
 doc2 = nlp(text2)

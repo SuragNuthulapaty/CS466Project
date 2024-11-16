@@ -1,5 +1,5 @@
-from . import alignment
-from . import utils
+import alignment
+import utils
 import numpy as np
 
 class LocalAlignment(alignment.Align):
@@ -98,9 +98,12 @@ class LocalAlignment(alignment.Align):
         
         if j_s == 0:
             adding_w = ['']
+
+        extended_v = [''] + v
+        extended_w = [''] + w
         
         init_i_act = init_i + 1
         init_j_act = init_j + 1
 
-        return score, alignment, M[i_s:init_i_act, j_s:init_j_act], adding_v + v[i_s:init_i_act], adding_w + w[j_s:init_j_act]
+        return score, alignment, M[i_s:init_i_act, j_s:init_j_act], extended_v[i_s:init_i_act], extended_w[j_s:init_j_act]
     

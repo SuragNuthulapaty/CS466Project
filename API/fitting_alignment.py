@@ -1,5 +1,5 @@
-from . import alignment
-from . import utils
+import alignment
+import utils
 import numpy as np
 
 class FittingAlignment(alignment.Align):
@@ -73,9 +73,6 @@ class FittingAlignment(alignment.Align):
 
         init_j_act = init_j + 1
 
-        adding_w = []
-
-        if j_s == 0:
-            adding_w = ['']
-
-        return score, alignment, M[:, j_s:init_j_act], [' '] + short, adding_w + reference[j_s:init_j_act]
+        reference_extended = [''] + reference
+        
+        return score, alignment, M[:, j_s:init_j_act], [''] + short, reference_extended[j_s:init_j_act]
