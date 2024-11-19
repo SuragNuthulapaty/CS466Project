@@ -12,6 +12,8 @@ import global_alignment as global_alignment
 import local_alignment as local_alignment
 import fitting_alignment as fitting_alignment
 import utils as utils
+import matplotlib
+matplotlib.use('Agg') 
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -57,7 +59,7 @@ def get_image_fitting():
 def get_image_global():
     return send_file("static/global_align.png", mimetype="image/png")
 
-@app.route('/submit')
+@app.route('/submit', methods = ['POST'])
 @app.input(Inputs, location="json")
 @app.output(RetVals)
 def aa(json_data):
@@ -117,7 +119,7 @@ def aa(json_data):
     plt.savefig("API/static/local_align.png")
     plt.clf()
 
-    a = {'local_align': u, 'local_score': t, 'global_align': y, 'global_score': x, 'fitting_align': w, 'fitting_score': v}
+    a = {'local_align': u, 'local_score': int(t), 'global_align': y, 'global_score': int(x), 'fitting_align': w, 'fitting_score': int(v)}
 
     return jsonify(a), 200
 
