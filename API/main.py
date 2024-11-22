@@ -92,7 +92,7 @@ def aa(json_data):
     plt.title(cur[3])
     plt.xlabel("Sequence 2")
     plt.ylabel("Sequence 1")
-    plt.savefig("API/static/global_align.png")
+    #plt.savefig("/static/global_align.png")
     plt.clf()
 
     cur = (mf, fve, fwe, "Fitting Alignment DP Matrix")
@@ -104,7 +104,7 @@ def aa(json_data):
     plt.title(cur[3])
     plt.xlabel("Sequence 2")
     plt.ylabel("Sequence 1")
-    plt.savefig("API/static/fitting_align.png")
+    #plt.savefig("/static/fitting_align.png")
     plt.clf()
 
     cur = (ml, lve, lwe, "Local Alignment DP Matrix")
@@ -116,7 +116,7 @@ def aa(json_data):
     plt.title(cur[3])
     plt.xlabel("Sequence 2")
     plt.ylabel("Sequence 1")
-    plt.savefig("API/static/local_align.png")
+    #plt.savefig("/static/local_align.png")
     plt.clf()
 
     a = {'local_align': u, 'local_score': int(t), 'global_align': y, 'global_score': int(x), 'fitting_align': w, 'fitting_score': int(v)}
