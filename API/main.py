@@ -61,7 +61,6 @@ def get_image_global():
 
 @app.route('/submit', methods = ['POST'])
 @app.input(Inputs, location="json")
-@app.output(RetVals)
 def aa(json_data):
     text = json_data['text1']
     text2 = json_data['text2']
@@ -69,9 +68,11 @@ def aa(json_data):
     doc = nlp(text)
     doc2 = nlp(text2)
 
+    parsed_text1 = utils.parse_spacy(doc)
+    parsed_text2 = utils.parse_spacy(doc2)
 
-    a = utils.doc_to_characters(doc)
-    b = utils.doc_to_characters(doc2)
+    a = utils.doc_to_characters(parsed_text1)
+    b = utils.doc_to_characters(parsed_text2)
 
     g = global_alignment.GlobalAlignment()
     l = local_alignment.LocalAlignment()
@@ -119,23 +120,22 @@ def aa(json_data):
     plt.savefig("API/static/local_align.png")
     plt.clf()
 
-    a = {'local_align': u, 'local_score': int(t), 'global_align': y, 'global_score': int(x), 'fitting_align': w, 'fitting_score': int(v)}
+    rets = {
+         'local_align': u, 
+         'local_score': int(t), 
+         'global_align': y, 
+         'global_score': int(x), 
+         'fitting_align': w, 
+         'fitting_score': int(v), 
+         't1': [(entity.orth_, j) for entity, j in zip(parsed_text1, a)],
+         't2': [(entity.orth_, j) for entity, j in zip(parsed_text2, b)]
+        }
 
-    return jsonify(a), 200
+    return jsonify(rets), 200
 
 
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 443))
-    # connected = False
-
-    # while not connected:
-    #     try:
-    #         start_db()
-    #         connected = True
-    #     except database.psycopg2.OperationalError as e:
-    #         print("Could not connect to database")
-
-    #     time.sleep(2)
 
     app.run(debug=True, host="0.0.0.0", port=port, use_reloader=True)

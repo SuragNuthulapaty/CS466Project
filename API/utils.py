@@ -6,6 +6,9 @@ ORIGIN = (0, 0)
 def delta(a, b):
    return 1 if a == b else -1
 
+def parse_spacy(doc):
+    return [entity for entity in doc if entity.pos_ != "SPACE"]
+
 def doc_to_characters(doc):
     pos_map = {
         "ADJ": "A",
@@ -27,6 +30,5 @@ def doc_to_characters(doc):
         "X": "X",
         "SPACE": "E"
     }
-
 
     return [pos_map[entity.pos_] for entity in doc]
