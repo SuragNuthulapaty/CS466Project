@@ -119,6 +119,15 @@ const App = () => {
         {globalSrc && (
           <div style={{ textAlign: "center" }}>
             <h2>Global Align</h2>
+            <p>
+              Score: {responseData['global_score']}
+            </p>
+            <p style={{ fontFamily: 'monospace', fontSize: '30px' }}>
+              {responseData['global_align'].split('\n')[0]}
+            </p>
+            <p style={{ fontFamily: 'monospace', fontSize: '30px' }}>
+              {responseData['global_align'].split('\n')[1]}
+            </p>
             <img
               key={globalSrc}
               src={globalSrc}
@@ -131,6 +140,15 @@ const App = () => {
         {fittingSrc && (
           <div style={{ textAlign: "center" }}>
             <h2>Fitting Align</h2>
+            <p>
+              Score: {responseData['fitting_score']}
+            </p>
+            <p style={{ fontFamily: 'monospace', fontSize: '30px' }}>
+              {responseData['fitting_align'].split('\n')[0]}
+            </p>
+            <p style={{ fontFamily: 'monospace', fontSize: '30px' }}>
+              {responseData['fitting_align'].split('\n')[1]}
+            </p>
             <img
               key={fittingSrc}
               src={fittingSrc}
@@ -143,6 +161,15 @@ const App = () => {
         {localSrc && (
           <div style={{ textAlign: "center" }}>
             <h2>Local Align</h2>
+            <p>
+              Score: {responseData['local_score']}
+            </p>
+            <p style={{ fontFamily: 'monospace', fontSize: '30px' }}>
+              {responseData['local_align'].split('\n')[0]}
+            </p>
+            <p style={{ fontFamily: 'monospace', fontSize: '30px' }}>
+              {responseData['local_align'].split('\n')[1]}
+            </p>
             <img
               key={localSrc}
               src={localSrc}

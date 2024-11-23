@@ -121,12 +121,12 @@ def aa(json_data):
     plt.clf()
 
     rets = {
-         'local_align': u, 
-         'local_score': int(t), 
+         'local_align': w, 
+         'local_score': int(v), 
          'global_align': y, 
          'global_score': int(x), 
-         'fitting_align': w, 
-         'fitting_score': int(v), 
+         'fitting_align': u, 
+         'fitting_score': int(t), 
          't1': [(entity.orth_, j) for entity, j in zip(parsed_text1, a)],
          't2': [(entity.orth_, j) for entity, j in zip(parsed_text2, b)]
         }
