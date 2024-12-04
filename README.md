@@ -4,10 +4,11 @@ This program computes and generates visualizations for optimal local, fitting, a
 
 
 ###Dependencies:
-
+Flask, React, spaCy, matplotlib. See requirements.txt for full list of libraries utilized.
 
 ###To run this program:
 
 backend:
 Run ```python3 main.py``` in /CS466Project
+
 frontend:
