@@ -11,4 +11,4 @@ Flask, React, spaCy, matplotlib. See requirements.txt for full list of libraries
 backend:
 Run ```python3 API/main.py``` in /CS466Project
 
-frontend:
+frontend: Run ```npm run dev``` in /CS466Project/Web
