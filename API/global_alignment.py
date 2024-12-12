@@ -3,24 +3,26 @@ import utils
 
 class GlobalAlignment(alignment.Align):
     def traceback(self, v, w, M, init_i, init_j, pointers):
-        i,j = len(v), len(w)
+        i, j = len(v), len(w)
         new_v = []
         new_w = []
+        path = []
         while True:
             di, dj = pointers[i][j]
-            if (di,dj) == utils.LEFT:
+            path.append((i, j, di, dj))
+            if (di, dj) == utils.LEFT:
                 new_v.append('-')
                 new_w.append(w[j-1])
-            elif (di,dj) == utils.UP:
+            elif (di, dj) == utils.UP:
                 new_v.append(v[i-1])
                 new_w.append('-')
-            elif (di,dj) == utils.TOPLEFT:
+            elif (di, dj) == utils.TOPLEFT:
                 new_v.append(v[i-1])
                 new_w.append(w[j-1])
             i, j = i + di, j + dj
-            if (i <= 0 and j <= 0):
+            if i <= 0 and j <= 0:
                 break
-        return ''.join(new_v[::-1])+'\n'+''.join(new_w[::-1])
+        return ''.join(new_v[::-1]) + '\n' + ''.join(new_w[::-1]), path
 
     def align(self, v, w):
         M = [[0 for j in range(len(w)+1)] for i in range(len(v)+1)]
@@ -79,5 +81,5 @@ class GlobalAlignment(alignment.Align):
 
         score = M[-1][-1]
 
-        alignment = self.traceback(v, w, None, -1, -1, pointers)
-        return score, alignment, M, [''] + v, [''] + w
+        alignment, path = self.traceback(v, w, None, -1, -1, pointers)
+        return score, alignment, M, [''] + v, [''] + w, path

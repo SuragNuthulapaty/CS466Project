@@ -7,8 +7,10 @@ class FittingAlignment(alignment.Align):
         i, j = len(v), init_j
         new_v = []
         new_w = []
+        path = []
         while True:
             di, dj = pointers[i][j]
+            path.append((i, j, di, dj))
             if (di,dj) == utils.LEFT:
                 new_v.append('-')
                 new_w.append(w[j-1])
@@ -21,7 +23,7 @@ class FittingAlignment(alignment.Align):
             i, j = i + di, j + dj
             if (i <= 0):
                 break
-        return ''.join(new_v[::-1]) + '\n'+''.join(new_w[::-1]), j
+        return ''.join(new_v[::-1]) + '\n' + ''.join(new_w[::-1]), path
 
     def align(self, short, reference):
         M = np.array([[0 for j in range(len(reference)+1)] for i in range(len(short)+1)])
@@ -69,10 +71,10 @@ class FittingAlignment(alignment.Align):
                 init_j = len(M[-1]) - i - 1
 
 
-        alignment, j_s = self.traceback(short, reference, None, -1, init_j, pointers)
+        alignment, path = self.traceback(short, reference, None, -1, init_j, pointers)
 
         init_j_act = init_j + 1
 
         reference_extended = [''] + reference
         
-        return score, alignment, M[:, j_s:init_j_act], [''] + short, reference_extended[j_s:init_j_act]
+        return score, alignment, M, [''] + list(short), [''] + list(reference), path

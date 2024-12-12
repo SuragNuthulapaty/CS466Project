@@ -8,8 +8,10 @@ class LocalAlignment(alignment.Align):
         i,j = init_i, init_j
         new_v = []
         new_w = []
+        path = []
         while True:
             di, dj = pointers[i][j]
+            path.append((i, j, di, dj))
             if (di,dj) == utils.LEFT:
                 new_v.append('-')
                 new_w.append(w[j-1])
@@ -22,7 +24,7 @@ class LocalAlignment(alignment.Align):
             i, j = i + di, j + dj
             if (M[i][j] == 0):
                 break
-        return ''.join(new_v[::-1]) + '\n'+''.join(new_w[::-1]), i, j
+        return ''.join(new_v[::-1]) + '\n'+''.join(new_w[::-1]), path
 
     def align(self, v, w):
         M = np.array([[0 for j in range(len(w)+1)] for i in range(len(v)+1)])
@@ -75,35 +77,16 @@ class LocalAlignment(alignment.Align):
                 else:
                     pointers[i][j] = utils.ORIGIN
 
-            # bottom right most cell will have i = len(v) and j = 0
-
-            mv = -1
-
-            for i in range(len(v), -1, -1):
-                for j in range(len(w), -1, -1):
-                    if M[i][j] > mv:
-                        mv = M[i][j]
-                        init_i = i
-                        init_j = j
+        # bottom right most cell will have i = len(v) and j = 0
+        mv = -1
+        for i in range(len(v), -1, -1):
+            for j in range(len(w), -1, -1):
+                if M[i][j] > mv:
+                    mv = M[i][j]
+                    init_i = i
+                    init_j = j
 
         score = mv
-
-        alignment, i_s, j_s = self.traceback(v, w, M, init_i, init_j , pointers)
-        
-        adding_v = []
-        adding_w = []
-
-        if i_s == 0:
-            adding_v = ['']
-        
-        if j_s == 0:
-            adding_w = ['']
-
-        extended_v = [''] + v
-        extended_w = [''] + w
-        
-        init_i_act = init_i + 1
-        init_j_act = init_j + 1
-
-        return score, alignment, M[i_s:init_i_act, j_s:init_j_act], extended_v[i_s:init_i_act], extended_w[j_s:init_j_act]
+        alignment, path = self.traceback(v, w, M, init_i, init_j , pointers)
+        return score, alignment, M, [''] + list(v), [''] + list(w), path
     

@@ -61,6 +61,7 @@ def get_image_global():
 
 @app.route('/submit', methods = ['POST'])
 @app.input(Inputs, location="json")
+
 def aa(json_data):
     text = json_data['text1']
     text2 = json_data['text2']
@@ -78,9 +79,9 @@ def aa(json_data):
     l = local_alignment.LocalAlignment()
     f = fitting_alignment.FittingAlignment()
 
-    x, y, mg, gve, gwe = g.align(a, b)
-    v, w, ml, lve, lwe = l.align(a, b)
-    t, u, mf, fve, fwe = f.align(a, b)
+    x, y, mg, gve, gwe, gpath = g.align(a, b)
+    v, w, ml, lve, lwe, lpath = l.align(a, b)
+    t, u, mf, fve, fwe, fpath = f.align(a, b)
 
     plt.figure(figsize=(10, 8))
 
@@ -89,6 +90,8 @@ def aa(json_data):
         sns.heatmap(cur[0], annot=True, fmt="d", cmap="Blues", xticklabels=list(cur[2]), yticklabels=list(cur[1]))
     else:
         sns.heatmap(cur[0], annot=False, cmap="Blues", xticklabels=list(cur[2]), yticklabels=list(cur[1]))
+
+    draw_pointers(gpath)
 
     plt.title(cur[3])
     plt.xlabel("Sequence 2")
@@ -102,6 +105,8 @@ def aa(json_data):
     else:
         sns.heatmap(cur[0], annot=False, cmap="Blues", xticklabels=list(cur[2]), yticklabels=list(cur[1]))
 
+    draw_pointers(fpath)
+
     plt.title(cur[3])
     plt.xlabel("Sequence 2")
     plt.ylabel("Sequence 1")
@@ -113,6 +118,8 @@ def aa(json_data):
         sns.heatmap(cur[0], annot=True, fmt="d", cmap="Blues", xticklabels=list(cur[2]), yticklabels=list(cur[1]))
     else:
         sns.heatmap(cur[0], annot=False, cmap="Blues", xticklabels=list(cur[2]), yticklabels=list(cur[1]))
+
+    draw_pointers(lpath)
 
     plt.title(cur[3])
     plt.xlabel("Sequence 2")
@@ -133,7 +140,17 @@ def aa(json_data):
 
     return jsonify(rets), 200
 
-
+def draw_pointers(path):
+    for (i, j, di, dj) in path:
+        if di == -1 and dj == -1:
+            plt.annotate('', xy=(j+0.5, i+0.5), xytext=(j, i),
+                            arrowprops=dict(facecolor='red', shrink=0.05))
+        elif di == -1 and dj == 0:
+            plt.annotate('', xy=(j+0.5, i+0.5), xytext=(j+0.5, i),
+                            arrowprops=dict(facecolor='red', shrink=0.05))
+        elif di == 0 and dj == -1:
+            plt.annotate('', xy=(j+0.5, i+0.5), xytext=(j, i+0.5),
+                            arrowprops=dict(facecolor='red', shrink=0.05))
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 443))
